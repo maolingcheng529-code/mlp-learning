@@ -1,0 +1,5 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),m=require('./engine.js');
+for(const p of [m.initial,[.3,-.8,.7,.4,-.2,.1,.6,-1,.2]]){const {g}=m.evaluate(p);for(let j=0;j<p.length;j++){const a=[...p],b=[...p];a[j]+=1e-5;b[j]-=1e-5;const numerical=(m.evaluate(a).loss-m.evaluate(b).loss)/2e-5;assert(Math.abs(g[j]-numerical)<1e-7,`gradient ${j}`)}}
+const h=m.train();assert.equal(h.length,301);assert(h[300].loss<h[0].loss/5);assert.deepEqual(h[300].pred.map(x=>+(x>=.5)),m.Y);for(const s of h){assert(s.p.every(Number.isFinite));assert(Number.isFinite(s.loss))}for(const lr of [.01,.1])assert(m.train(lr).every(s=>Number.isFinite(s.loss)));
+const html=fs.readFileSync(__dirname+'/index.html','utf8');for(const match of html.matchAll(/(?:href|src)="([^"#][^"]*)"/g))if(!match[1].startsWith('http'))assert(fs.existsSync(__dirname+'/'+match[1]),match[1]);
+console.log('PASS: finite-difference gradients, 301 states, loss decrease, XOR labels and local resources.');console.log('Initial/final loss:',h[0].loss,h[300].loss,'Final probabilities:',h[300].pred);
