@@ -42,3 +42,9 @@ TensorFlow 版本：将最后两行替换成 `python -m pip install tensorflow` 
 `node test.cjs` 检查解析梯度与有限差分梯度、默认训练损失下降和 XOR 分类，以及页面本地资源。Python 框架运行情况见交付说明；不要将浏览器运行当作框架实测。
 
 参考：[TensorFlow GradientTape](https://www.tensorflow.org/api_docs/python/tf/GradientTape)、[PyTorch Adam](https://docs.pytorch.org/docs/stable/generated/torch.optim.Adam.html)。学习材料为用户提供的第 15 节截图，完整原始讲义未提供。
+
+## 展示版升级
+
+深色首屏、响应式实验面板及减少动态效果支持。新增 XOR 连续决策区域（点击/方向键探针）、参数历史曲线、四步训练讲解和 JSON 训练记录导出。探针不会参与训练；导出包含当前学习率下完整 0–300 轮记录，displayed_epoch 标明界面正在查看的轮次。
+
+已在 Edge 检查桌面和 390px 手机布局，并验证训练轮次、重置、单步、学习率、样本、参数选择和 Python 代码切换。
